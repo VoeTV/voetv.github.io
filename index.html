@@ -3,135 +3,578 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voe - Grafik & CS:GO Player</title>
+    <title>VOE - Grafika | CS2 | Automatyka PKP</title>
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #0f0f0f;
-            color: #ffffff;
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a1a1a;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
         }
+
         header {
-            text-align: center;
-            padding: 50px 0;
-        }
-        h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-        nav {
-            margin-top: 20px;
-        }
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
-            transition: color 0.3s ease;
-        }
-        nav a:hover {
-            color: #ff4500;
-        }
-        .section {
-            margin-bottom: 50px;
-        }
-        .section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            color: #ff4500;
-        }
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .portfolio-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-        .portfolio-item img {
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            padding: 1rem 0;
+            position: fixed;
             width: 100%;
-            height: auto;
-            transition: transform 0.3s ease;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
-        .portfolio-item:hover img {
+
+        .container {
+            width: 85%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: url('/api/placeholder/1920/1080') no-repeat center center/cover;
+            position: relative;
+            margin-top: 70px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--light);
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--light);
+            color: var(--dark);
+            border: 2px solid var(--light);
+        }
+
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--primary);
+        }
+
+        .services {
+            background-color: var(--secondary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: var(--dark);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .projects {
+            background-color: var(--dark);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-img {
             transform: scale(1.1);
         }
-        .cs-stats {
-            background-color: #1a1a1a;
-            padding: 20px;
-            border-radius: 10px;
+
+        .project-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
         }
+
+        .project-card:hover .project-info {
+            transform: translateY(0);
+        }
+
+        .project-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .about {
+            background-color: var(--secondary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact {
+            background-color: var(--dark);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--secondary);
+            border: none;
+            border-radius: 4px;
+            color: var(--light);
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: 2px solid var(--primary);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
         footer {
+            background-color: var(--secondary);
+            padding: 3rem 0;
             text-align: center;
-            padding: 20px 0;
-            background-color: #1a1a1a;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            list-style: none;
+        }
+
+        .social-links li {
+            margin: 0 1rem;
+        }
+
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-text {
+            color: var(--light);
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+                display: block;
+                text-align: center;
+            }
+
+            .btn {
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.8s ease forwards;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Voe</h1>
-            <p>Grafik & CS:GO Player</p>
+    <header>
+        <div class="container">
             <nav>
-                <a href="#about">O mnie</a>
-                <a href="#portfolio">Portfolio</a>
-                <a href="#cs-stats">CS:GO Stats</a>
-                <a href="#contact">Kontakt</a>
+                <div class="logo">V<span>oe</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home">Strona główna</a></li>
+                    <li><a href="#services">Usługi</a></li>
+                    <li><a href="#projects">Projekty</a></li>
+                    <li><a href="#about">O mnie</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
             </nav>
-        </header>
+        </div>
+    </header>
 
-        <section id="about" class="section">
-            <h2>O mnie</h2>
-            <p>Cześć! Jestem Voe, grafik z pasją do CS:GO. Łączę kreatywność w projektowaniu z precyzją w grze.</p>
-        </section>
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content animate">
+                <h1>Innowacyjne podejście do <span class="highlight">grafiki</span>, <span class="highlight">CS2</span> i <span class="highlight">automatyki PKP</span></h1>
+                <p>Łączenie pasji do projektowania graficznego, gamingu i zaawansowanych systemów automatyki w jednym miejscu. Realizacja projektów na najwyższym poziomie.</p>
+                <a href="#projects" class="btn">Zobacz projekty</a>
+                <a href="#contact" class="btn btn-secondary">Skontaktuj się</a>
+            </div>
+        </div>
+    </section>
 
-        <section id="portfolio" class="section">
-            <h2>Portfolio</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <img src="projekt1.jpg" alt="Projekt 1">
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Usługi</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card animate">
+                    <div class="service-icon">🎨</div>
+                    <h3>Projektowanie graficzne</h3>
+                    <p>Tworzenie profesjonalnych materiałów graficznych, logo, identyfikacji wizualnej oraz zaawansowanych projektów reklamowych.</p>
                 </div>
-                <div class="portfolio-item">
-                    <img src="projekt2.jpg" alt="Projekt 2">
+                <div class="service-card animate">
+                    <div class="service-icon">🎮</div>
+                    <h3>Serwisy CS2</h3>
+                    <p>Profesjonalny coaching, tworzenie map, konfiguracja serwerów oraz organizacja turniejów w CS2 z naciskiem na najnowsze trendy i metody.</p>
                 </div>
-                <div class="portfolio-item">
-                    <img src="projekt3.jpg" alt="Projekt 3">
-                </div>
-                <div class="portfolio-item">
-                    <img src="projekt4.jpg" alt="Projekt 4">
+                <div class="service-card animate">
+                    <div class="service-icon">🚄</div>
+                    <h3>Automatyka PKP</h3>
+                    <p>Projektowanie i wdrażanie zaawansowanych systemów automatyki dla kolei, optymalizacja procesów oraz tworzenie innowacyjnych rozwiązań technicznych.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="cs-stats" class="section">
-            <h2>CS:GO Stats</h2>
-            <div class="cs-stats">
-                <p>Rank: Global Elite</p>
-                <p>K/D Ratio: 1.8</p>
-                <p>Headshot %: 62%</p>
-                <p>Godziny gry: 3000+</p>
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Projekty</h2>
             </div>
-        </section>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="/api/placeholder/600/400" alt="Projekt graficzny" class="project-img">
+                    <div class="project-info">
+                        <h3>Rebrand dla firmy XYZ</h3>
+                        <p>Kompleksowy projekt odświeżenia identyfikacji wizualnej, włącznie z logo, kolorystyką oraz materiałami marketingowymi.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="/api/placeholder/600/400" alt="Projekt CS2" class="project-img">
+                    <div class="project-info">
+                        <h3>Turniej CS2 Pro League</h3>
+                        <p>Organizacja i prowadzenie profesjonalnej ligi CS2 z udziałem najlepszych graczy w regionie.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="/api/placeholder/600/400" alt="Projekt automatyki" class="project-img">
+                    <div class="project-info">
+                        <h3>System zarządzania ruchem kolejowym</h3>
+                        <p>Wdrożenie nowoczesnego systemu automatyki zwiększającego efektywność i bezpieczeństwo transportu kolejowego.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="contact" class="section">
-            <h2>Kontakt</h2>
-            <p>Email: voe@example.com</p>
-            <p>Discord: Voe#1234</p>
-            <p>Steam: steamcommunity.com/id/voe</p>
-        </section>
-    </div>
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>O mnie</h2>
+            </div>
+            <div class="about-content">
+                <img src="/api/placeholder/600/700" alt="Zdjęcie profilowe" class="about-img">
+                <div class="about-text">
+                    <h3>Kim jestem?</h3>
+                    <p>Jestem profesjonalistą łączącym pasję do projektowania graficznego, e-sportu oraz zaawansowanych systemów automatyki. Moje unikalne doświadczenie pozwala mi realizować projekty na styku tych trzech, pozornie odległych dziedzin.</p>
+                    <p>Przez ostatnie 8 lat pracowałem zarówno jako niezależny grafik, trener CS2 oraz specjalista ds. automatyki w sektorze kolejowym. Ta różnorodność doświadczeń pozwala mi wnosić świeże spojrzenie do każdego projektu.</p>
+                    <p>Moim celem jest dostarczanie rozwiązań, które nie tylko spełniają oczekiwania, ale je przewyższają, łącząc estetykę, funkcjonalność i zaawansowaną technologię.</p>
+                    <a href="#contact" class="btn">Współpracujmy</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kontakt</h2>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Imię i nazwisko" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Adres e-mail" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Temat">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Twoja wiadomość" required></textarea>
+                </div>
+                <button type="submit" class="btn">Wyślij wiadomość</button>
+            </form>
+        </div>
+    </section>
 
     <footer>
-        <p>&copy; 2025 Voe. Wszelkie prawa zastrzeżone.</p>
+        <div class="container">
+            <ul class="social-links">
+                <li><a href="#">📱</a></li>
+                <li><a href="#">💼</a></li>
+                <li><a href="#">🎮</a></li>
+                <li><a href="#">📷</a></li>
+            </ul>
+            <p class="footer-text">&copy; 2025 VOE. Wszelkie prawa zastrzeżone.</p>
+        </div>
     </footer>
+
+    <script>
+        // Simple animation on scroll
+        const animateElements = document.querySelectorAll('.animate');
+        
+        function checkIfInView() {
+            const windowHeight = window.innerHeight;
+            const windowTopPosition = window.scrollY;
+            const windowBottomPosition = windowTopPosition + windowHeight;
+            
+            animateElements.forEach(element => {
+                const elementHeight = element.offsetHeight;
+                const elementTopPosition = element.offsetTop;
+                const elementBottomPosition = elementTopPosition + elementHeight;
+                
+                if (
+                    (elementBottomPosition >= windowTopPosition) &&
+                    (elementTopPosition <= windowBottomPosition)
+                ) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkIfInView);
+        window.addEventListener('load', checkIfInView);
+    </script>
 </body>
 </html>
